@@ -1,0 +1,29 @@
+MODULE thread(y)
+VAR
+    state : {crit,non_crit,existing,wait};
+ASSIGN
+    init(state):=non_crit;
+    next(state):=case
+        state = non_crit :{non_crit,wait};
+        state = wait & y > 0: crit;
+        state = crit:{crit,existing}; 
+        state = existing : non_crit;
+        TRUE: state;
+        esac;
+    next(y):= case
+        state = wait & y>0 : y -1 ;
+        state = existing & y = 0 : y + 1;
+        TRUE : y;
+        esac;
+
+MODULE main
+VAR 
+y-main : 0..1;
+Pro1 : process thread(y-main);
+Pro2 : process thread(y-main);
+ASSIGN
+init (y-main) := 1;
+
+
+        
+    

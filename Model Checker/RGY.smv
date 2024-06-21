@@ -1,0 +1,15 @@
+MODULE light
+VAR
+    state:{r,y,g};
+ASSIGN
+    init(state) :=r;
+    next(state):=case  
+        state =r:y;
+        state=y:g;
+        state=g:r;
+        esac;
+
+MODULE main
+VAR
+    tl1:light;
+    tl2:light;

@@ -1,0 +1,10 @@
+MODULE main
+      VAR
+          location: {m1, m2};
+       ASSIGN
+           init( location) :=m1;
+           next ( location) := case
+                               location = m1 : m2;
+                               location = m2 : m1;
+                                esac;
+

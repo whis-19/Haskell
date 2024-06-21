@@ -1,0 +1,16 @@
+MODULE light(other)
+VAR
+    state:{r,y,g};
+ASSIGN
+    init(state):=r;
+    next(state):= case
+        state=r & other = r :(r,y);
+        state=y : g;
+        state=g : (g,r);
+        TRUE : state;
+    esac;
+
+MODULE main
+VAR
+    tl1 : process light(tl2.state);
+    tl2 : process light(tl1.state);

@@ -1,0 +1,22 @@
+MODULE WER
+VAR
+    state : {A1 ,B1 ,C1};
+    check : boolean;
+ASSIGN
+    init(state) := A1;
+    init(check) := TRUE;
+
+    next(state) := case
+            state = A1 & check = TRUE : B1;
+            state = A1 & check = FALSE : C1;
+            state = B1 | state = C1 : A1;
+        esac;
+
+    next(check) := case
+        state = B1 | state = C1 : FALSE;
+        state = A1 : TRUE;
+    esac;
+
+MODULE main
+VAR
+    XYZ : WER;

@@ -1,0 +1,18 @@
+MODULE main
+      VAR
+          location: {m1, m2};
+          x:0..100;
+       ASSIGN
+           init( location) :=m1;
+           init(x):=5;
+           
+           next ( location) := case
+                               (location = m1) & (x<10) : m2;
+                               location = m2 : m1;
+                               TRUE:location;
+                                esac;
+            next(x) := case
+            (location=m2)&(x<10) : x+1;
+            TRUE:x;
+            esac;
+
